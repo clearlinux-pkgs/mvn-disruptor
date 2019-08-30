@@ -4,15 +4,18 @@
 #
 Name     : mvn-disruptor
 Version  : 3.3.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/LMAX-Exchange/disruptor/archive/3.3.0.tar.gz
 Source0  : https://github.com/LMAX-Exchange/disruptor/archive/3.3.0.tar.gz
-Source1  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar
-Source2  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.3.0/disruptor-3.3.0.pom
+Source1  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.0.1/disruptor-3.0.1.jar
+Source2  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.0.1/disruptor-3.0.1.pom
+Source3  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar
+Source4  : https://repo1.maven.org/maven2/com/lmax/disruptor/3.3.0/disruptor-3.3.0.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-disruptor-data = %{version}-%{release}
+Requires: mvn-disruptor-license = %{version}-%{release}
 
 %description
 ## LMAX Disruptor
@@ -27,16 +30,33 @@ Group: Data
 data components for the mvn-disruptor package.
 
 
+%package license
+Summary: license components for the mvn-disruptor package.
+Group: Default
+
+%description license
+license components for the mvn-disruptor package.
+
+
 %prep
+%setup -q -n disruptor-3.3.0
 
 %build
 
 %install
-mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-disruptor
+cp LICENCE.txt %{buildroot}/usr/share/package-licenses/mvn-disruptor/LICENCE.txt
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1/disruptor-3.0.1.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1/disruptor-3.0.1.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.pom
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.pom
 
 
 %files
@@ -44,5 +64,11 @@ cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/lmax/disruptor/3.3.
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1/disruptor-3.0.1.jar
+/usr/share/java/.m2/repository/com/lmax/disruptor/3.0.1/disruptor-3.0.1.pom
 /usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar
 /usr/share/java/.m2/repository/com/lmax/disruptor/3.3.0/disruptor-3.3.0.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-disruptor/LICENCE.txt
